@@ -1,0 +1,25 @@
+{
+    "devDependencies": {
+        "@babel/core": "^7.17.0",
+        "@babel/preset-env": "^7.16.0",
+        "@symfony/webpack-encore": "^5.0.0",
+        "browser-sync": "^2.29.3",
+        "browser-sync-webpack-plugin": "^2.3.0",
+        "core-js": "^3.38.0",
+        "regenerator-runtime": "^0.13.9",
+        "webpack": "^5.74.0",
+        "webpack-cli": "^5.1.0",
+        "webpack-dev-server": "^5.2.1",
+        "webpack-notifier": "^1.15.0"
+    },
+    "license": "UNLICENSED",
+    "private": true,
+    "scripts": {
+        "dev-server": "encore dev-server",
+        "dev": "encore dev",
+        "watch": "encore dev --watch",
+        "hot": "encore dev --watch --hot",
+        "hot-reload": "encore dev-server --hot --host=0.0.0.0 --port 3000 --client-progress=false --no-stats",
+        "build": "encore production --progress"
+    }
+}
