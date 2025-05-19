@@ -5,11 +5,16 @@ RUN apt-get update && apt-get install -y \
     libicu-dev \
     git \
     unzip \
+    curl \
     && docker-php-ext-install \
     intl \
     pdo \
     pdo_mysql \
     zip
+
+# Installation de Node.js
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y nodejs
 
 # Configuration PHP
 RUN echo "date.timezone = Europe/Paris" > /usr/local/etc/php/conf.d/timezone.ini \

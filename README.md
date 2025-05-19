@@ -58,23 +58,38 @@ SymfoBlog offre une expérience de blog complète avec une gestion fine des perm
 git clone https://github.com/votre-nom/symfoblog.git
 cd symfoblog
 
-# Installer les dépendances
-composer install
-npm install
+# Créer le fichier .env.local avec les configurations suivantes
+cat > .env.local << EOL
+MYSQL_DATABASE=symfoblog
+MYSQL_ROOT_PASSWORD=root
+MYSQL_USER=app
+MYSQL_PASSWORD=app
 
-# Configuration de l'environnement (copier et configurer le fichier .env)
-cp .env.example .env
-# Configurer les variables d'environnement dans .env
+DATABASE_URL="mysql://app:app@database:3306/symfoblog?serverVersion=8.0.32&charset=utf8mb4"
+EOL
 
 # Lancer avec Docker
 docker compose up -d
 
-# Exécuter les migrations
-docker compose exec php bin/console doctrine:migrations:migrate
+# Installer les dépendances Stimulus
+docker compose exec php php bin/console importmap:install
 
-# Charger les fixtures (données de test)
-docker compose exec php bin/console doctrine:fixtures:load
+# Installer les dépendances npm et construire les assets
+docker compose exec php npm install
+docker compose exec php npm run build
+
+# Exécuter les migrations
+docker compose exec php php bin/console doctrine:migrations:migrate
 ```
+
+## 🔧 Accès aux Services
+
+Une fois l'installation terminée, vous pouvez accéder aux différents services :
+
+- Application Symfony : http://localhost:8000
+- PHPMyAdmin : http://localhost:8080
+  - Utilisateur : root
+  - Mot de passe : root (ou celui défini dans .env.local)
 
 ## 🔧 Technologies Utilisées
 
@@ -152,7 +167,7 @@ docker compose exec php bin/console doctrine:fixtures:load
                                       └───────────────┘
 ```
 
-## 🖥️ Captures d'écran
+## ��️ Captures d'écran
 
 *Des captures d'écran de l'application seront ajoutées ici une fois le développement avancé.*
 
